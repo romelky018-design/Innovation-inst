@@ -1,0 +1,1576 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>INNOVATION INSTITUTE</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --accent:#4338ca;
+  --accent-2:#6366f1;
+  --accent-soft:#eef2ff;
+  --ink:#0f172a;
+  --text:#1f2937;
+  --muted:#6b7280;
+  --line:#e5e7eb;
+  --bg:#f4f5f9;
+  --card:#ffffff;
+  --green:#15803d; --green-soft:#dcfce7;
+  --red:#b91c1c;   --red-soft:#fee2e2;
+  --amber:#b45309; --amber-soft:#fef3c7;
+  --r:14px;
+  --shadow:0 1px 2px rgba(16,24,40,.05),0 1px 3px rgba(16,24,40,.08);
+}
+
+/* ============ THÈME SOMBRE ============ */
+body.dark{
+  --accent:#6366f1;
+  --accent-2:#818cf8;
+  --accent-soft:#1e2a4a;
+  --ink:#e8edf7;
+  --text:#c5cfe0;
+  --muted:#8b9ab3;
+  --line:#22304a;
+  --bg:#0b1220;
+  --card:#111a2e;
+  --green:#4ade80; --green-soft:#0f2e1e;
+  --red:#f87171;   --red-soft:#3a1515;
+  --amber:#fbbf24; --amber-soft:#3a2a0a;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 1px 3px rgba(0,0,0,.5);
+}
+body.dark .topbar{background:rgba(17,26,46,.92)}
+body.dark .hamburger{background:var(--card);color:var(--ink);border-color:var(--line)}
+body.dark .input{background:#0e1728;color:var(--text);border-color:var(--line)}
+body.dark thead th{background:#0e1728}
+body.dark tbody tr:hover{background:#152036}
+body.dark .table-foot{background:#0e1728}
+body.dark .modal{background:var(--card)}
+body.dark .modal-info{background:#0e1728}
+body.dark .chip{background:var(--card);color:var(--muted);border-color:var(--line)}
+body.dark .btn-ghost{background:var(--card);color:var(--text);border-color:var(--line)}
+body.dark .btn-ghost:hover{background:#152036}
+body.dark .switch .slider{background:#22304a}
+body.dark .prog-track{background:#22304a}
+body.dark .pay-item{border-color:var(--line)}
+body.dark .mat{background:var(--card);border-color:var(--line)}
+body.dark .mat-meta{border-color:var(--line)}
+body.dark .switch-row{border-color:var(--line)}
+body.dark .ava{background:var(--accent-soft);color:#c7d2fe}
+body.dark .mat-grid .empty{background:var(--card);border-color:var(--line)}
+body.dark .stat{background:var(--card);border-color:var(--line)}
+
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  background:var(--bg);color:var(--text);font-size:14px;line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  transition:background .2s,color .2s;
+}
+.sprite{display:none}
+.ico{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;
+     stroke-linecap:round;stroke-linejoin:round;flex:none;display:block}
+
+/* ============ SIDEBAR ============ */
+.sidebar{
+  position:fixed;top:0;left:0;bottom:0;width:260px;background:#0f172a;
+  display:flex;flex-direction:column;padding:24px 14px;z-index:60;
+  transition:transform .28s ease;
+}
+.brand{
+  font-size:15px;font-weight:800;letter-spacing:.1em;color:#ffffff;
+  padding:0 10px 26px;line-height:1.4;
+}
+.nav{display:flex;flex-direction:column;gap:4px}
+.nav-item{
+  display:flex;align-items:center;gap:12px;width:100%;padding:11px 12px;
+  border:0;background:none;border-radius:10px;color:#94a3b8;font:inherit;
+  font-weight:500;cursor:pointer;text-align:left;transition:background .15s,color .15s;
+}
+.nav-item:hover{background:rgba(255,255,255,.06);color:#e2e8f0}
+.nav-item.active{background:var(--accent);color:#fff;box-shadow:0 8px 18px -10px rgba(67,56,202,1)}
+
+.sidebar-footer{
+  margin-top:auto;padding-top:16px;
+  border-top:1px solid rgba(255,255,255,.08);
+  display:flex;flex-direction:column;gap:4px;
+}
+
+/* ============ MAIN ============ */
+.main{margin-left:260px;min-height:100vh;display:flex;flex-direction:column}
+
+.topbar{
+  position:sticky;top:0;z-index:30;height:64px;display:flex;align-items:center;
+  gap:14px;padding:0 20px;background:rgba(255,255,255,.92);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line);
+}
+.topbar h1{font-size:16px;font-weight:700;color:var(--ink);letter-spacing:-.2px}
+.hamburger{
+  display:none;width:40px;height:40px;border-radius:10px;border:1px solid var(--line);
+  background:#fff;color:var(--ink);cursor:pointer;align-items:center;justify-content:center;
+  flex-direction:column;gap:3px;flex:none;
+}
+.hamburger span{display:block;width:17px;height:2px;background:currentColor;border-radius:2px}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.avatar-top{
+  width:36px;height:36px;border-radius:50%;background:var(--accent);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;
+}
+
+.overlay{display:none;position:fixed;inset:0;background:rgba(15,23,42,.45);
+         z-index:55;backdrop-filter:blur(2px)}
+.overlay.show{display:block}
+
+/* ============ VIEWS ============ */
+.view{display:none;padding:24px 20px 60px;width:100%;max-width:1240px;margin:0 auto}
+.view.active{display:block}
+
+.page-head{margin-bottom:20px}
+.page-head h2{font-size:20px;font-weight:700;color:var(--ink);letter-spacing:-.3px}
+.page-head p{color:var(--muted);font-size:13px;margin-top:3px}
+
+/* ============ CARDS / STATS ============ */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+      box-shadow:var(--shadow);overflow:hidden}
+.card-head{display:flex;align-items:center;justify-content:space-between;gap:12px;
+           padding:15px 18px;border-bottom:1px solid var(--line)}
+.card-head h3{font-size:14.5px;font-weight:650;color:var(--ink)}
+.card-body{padding:18px}
+.tag{font-size:11.5px;font-weight:600;color:var(--accent);background:var(--accent-soft);
+     padding:4px 10px;border-radius:99px}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+       gap:14px;margin-bottom:16px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+      padding:16px 18px;box-shadow:var(--shadow)}
+.stat-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.stat-label{font-size:12.5px;color:var(--muted);font-weight:500}
+.stat-ico{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;
+          justify-content:center;background:var(--accent-soft);color:var(--accent)}
+.stat-ico.g{background:var(--green-soft);color:var(--green)}
+.stat-ico.r{background:var(--red-soft);color:var(--red)}
+.stat-ico.a{background:var(--amber-soft);color:var(--amber)}
+.stat-value{font-size:24px;font-weight:700;color:var(--ink);letter-spacing:-.6px}
+.stat-sub{font-size:12px;color:var(--muted);margin-top:4px}
+.stat-sub.up{color:var(--green);font-weight:600}
+.stat-sub.down{color:var(--red);font-weight:600}
+
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+        gap:16px;margin-bottom:16px}
+
+/* ============ CHART ============ */
+.chart{display:flex;align-items:flex-end;gap:10px;height:200px;padding:6px 4px 0}
+.col{flex:1;display:flex;flex-direction:column;justify-content:flex-end;
+     align-items:center;gap:8px;height:100%}
+.bar{width:100%;max-width:34px;border-radius:8px 8px 3px 3px;
+     background:linear-gradient(180deg,var(--accent-2),var(--accent));
+     height:calc(var(--h) * 1.35px);min-height:6px;transition:filter .15s}
+.bar:hover{filter:brightness(1.12)}
+.col small{font-size:11px;color:var(--muted)}
+
+/* ============ PROGRESS ============ */
+.prog{margin-bottom:15px}
+.prog:last-child{margin-bottom:0}
+.prog-top{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:6px;gap:10px}
+.prog-top span{color:var(--text);font-weight:500}
+.prog-top strong{color:var(--ink);font-weight:650;white-space:nowrap}
+.prog-track{height:8px;background:#eef0f5;border-radius:99px;overflow:hidden}
+.prog-fill{height:100%;border-radius:99px;
+           background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+
+/* ============ PAY LIST ============ */
+.pay-item{display:flex;align-items:center;gap:12px;padding:12px 0;
+          border-bottom:1px solid #f1f2f6}
+.pay-item:last-child{border-bottom:0;padding-bottom:0}
+.pay-item:first-child{padding-top:0}
+.pay-name{font-size:13.5px;font-weight:600;color:var(--ink)}
+.pay-meta{font-size:12px;color:var(--muted)}
+.pay-item .money{margin-left:auto;white-space:nowrap}
+
+/* ============ TABLE ============ */
+.toolbar{display:flex;align-items:center;gap:10px;padding:15px 18px;flex-wrap:wrap;
+         border-bottom:1px solid var(--line)}
+.input{
+  font:inherit;padding:9px 12px;border:1px solid var(--line);border-radius:10px;
+  background:#fff;color:var(--text);outline:none;min-width:0;
+  transition:border-color .15s,box-shadow .15s,background .2s,color .2s;
+}
+.input:focus{border-color:var(--accent-2);box-shadow:0 0 0 3px rgba(99,102,241,.15)}
+#searchEtudiant{flex:1;min-width:190px}
+.btn{font:inherit;font-weight:600;padding:9px 16px;border-radius:10px;
+     border:1px solid transparent;cursor:pointer;transition:.15s;white-space:nowrap}
+.btn-primary{background:var(--accent);color:#fff;box-shadow:0 6px 14px -8px rgba(67,56,202,1)}
+.btn-primary:hover{background:#3a2fbf}
+.btn-ghost{background:#fff;border-color:var(--line);color:var(--text)}
+.btn-ghost:hover{background:#f7f8fb}
+
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:760px}
+thead th{
+  text-align:left;font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--muted);font-weight:600;padding:11px 18px;background:#fafbfd;
+  border-bottom:1px solid var(--line);white-space:nowrap;
+}
+tbody td{padding:12px 18px;border-bottom:1px solid #f1f2f6;vertical-align:middle}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover{background:#fafbff}
+th.num,td.num{text-align:right}
+.mono{font-variant-numeric:tabular-nums;color:var(--muted);font-size:12.5px}
+.table-foot{padding:12px 18px;font-size:12.5px;color:var(--muted);
+            border-top:1px solid var(--line);background:#fafbfd}
+
+.who{display:flex;align-items:center;gap:10px;font-weight:600;color:var(--ink);white-space:nowrap}
+.ava{
+  width:32px;height:32px;border-radius:50%;background:var(--accent-soft);color:var(--accent);
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;flex:none;
+}
+.pill{padding:3px 10px;border-radius:99px;font-size:11.5px;font-weight:600;white-space:nowrap;
+      display:inline-block}
+.pill.actif{background:var(--green-soft);color:var(--green)}
+.pill.attente{background:var(--amber-soft);color:var(--amber)}
+.pill.suspendu{background:var(--red-soft);color:var(--red)}
+.pill.normale{background:var(--accent-soft);color:var(--accent)}
+.pill.seminaire{background:var(--amber-soft);color:var(--amber)}
+.money{font-weight:600;font-variant-numeric:tabular-nums}
+.money.ok{color:var(--green)}
+.money.due{color:var(--red)}
+.money.plus{color:var(--green)}
+.money.minus{color:var(--red)}
+.empty{text-align:center;color:var(--muted);padding:34px 18px !important}
+.link{background:none;border:0;color:var(--accent);font:inherit;font-weight:600;
+      font-size:12.5px;cursor:pointer;padding:4px 6px;border-radius:6px}
+.link:hover{background:var(--accent-soft)}
+
+/* ============ CHIPS ============ */
+.chips{display:flex;gap:8px;flex-wrap:wrap;padding:14px 18px;border-bottom:1px solid var(--line)}
+.chip{
+  font:inherit;font-size:12.5px;font-weight:600;padding:6px 14px;border-radius:99px;
+  border:1px solid var(--line);background:#fff;color:var(--muted);cursor:pointer;transition:.15s;
+}
+.chip:hover{border-color:#c7cbd6}
+.chip.active{background:var(--accent);border-color:var(--accent);color:#fff}
+
+/* ============ FORMATIONS ============ */
+.mat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:14px}
+.mat{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:16px;
+     box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px}
+.mat-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.mat-code{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--accent);
+          background:var(--accent-soft);padding:3px 9px;border-radius:6px}
+.mat-code.sem{background:var(--amber-soft);color:var(--amber)}
+.mat h4{font-size:14.5px;font-weight:650;color:var(--ink);line-height:1.35}
+.mat-prof{font-size:12.5px;color:var(--muted)}
+.mat-meta{display:flex;gap:16px;padding-top:10px;border-top:1px solid #f1f2f6;
+          font-size:12px;color:var(--muted);margin-top:auto;flex-wrap:wrap}
+.mat-meta b{color:var(--ink);font-weight:650}
+.mat-grid .empty{grid-column:1/-1;background:#fff;border:1px solid var(--line);
+                 border-radius:var(--r)}
+
+/* ============ FORMULAIRES ============ */
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.field label{display:block;font-size:12.5px;font-weight:600;color:var(--text);margin-bottom:5px}
+.field .input{width:100%}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+.switch-row{display:flex;align-items:center;justify-content:space-between;gap:16px;
+            padding:13px 0;border-bottom:1px solid #f1f2f6}
+.switch-row:last-child{border-bottom:0;padding-bottom:0}
+.switch-row .lbl{font-size:13.5px;font-weight:600;color:var(--ink)}
+.switch-row .hint{font-size:12px;color:var(--muted)}
+.switch{position:relative;width:42px;height:24px;flex:none}
+.switch input{opacity:0;width:0;height:0;position:absolute}
+.switch .slider{position:absolute;inset:0;background:#d7dae3;border-radius:99px;
+                cursor:pointer;transition:.2s}
+.switch .slider::before{content:"";position:absolute;width:18px;height:18px;border-radius:50%;
+  background:#fff;top:3px;left:3px;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.switch input:checked + .slider{background:var(--accent)}
+.switch input:checked + .slider::before{transform:translateX(18px)}
+
+/* ============ MODAL ============ */
+.modal-back{
+  position:fixed;inset:0;background:rgba(15,23,42,.5);backdrop-filter:blur(2px);
+  display:none;align-items:center;justify-content:center;padding:18px;z-index:120;
+}
+.modal-back.show{display:flex}
+.modal{
+  background:#fff;border-radius:16px;width:100%;max-width:470px;padding:22px;
+  box-shadow:0 24px 60px -20px rgba(15,23,42,.5);max-height:90vh;overflow:auto;
+}
+.modal h3{font-size:16px;font-weight:700;color:var(--ink);margin-bottom:16px}
+.modal .field{margin-bottom:12px}
+.modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:18px}
+.modal-info{font-size:13px;color:var(--muted);background:#f7f8fb;border:1px solid var(--line);
+            border-radius:10px;padding:11px 13px;margin-bottom:14px}
+
+/* ============ TOAST ============ */
+.toast{
+  position:fixed;left:50%;bottom:26px;transform:translate(-50%,20px);
+  background:#0f172a;color:#fff;padding:11px 20px;border-radius:11px;
+  font-size:13px;font-weight:500;opacity:0;pointer-events:none;transition:.25s;z-index:200;
+  box-shadow:0 18px 40px -16px rgba(15,23,42,.8);max-width:90vw;text-align:center;
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:900px){
+  .sidebar{transform:translateX(-100%);box-shadow:0 0 50px rgba(0,0,0,.45)}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0}
+  .hamburger{display:flex}
+  .topbar{padding:0 14px;height:60px}
+  .topbar h1{font-size:15px}
+  .view{padding:18px 14px 50px}
+  .page-head h2{font-size:18px}
+  .stat-value{font-size:21px}
+  .chart{height:170px}
+  .bar{height:calc(var(--h) * 1.05px)}
+}
+@media (max-width:420px){
+  .field-row{grid-template-columns:1fr}
+  .modal{padding:18px}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= ICONES ================= -->
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <symbol id="i-grid" viewBox="0 0 24 24">
+    <rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/>
+    <rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/>
+  </symbol>
+  <symbol id="i-users" viewBox="0 0 24 24">
+    <circle cx="9" cy="8" r="3.2"/><path d="M2.8 20c0-3.2 2.8-5.4 6.2-5.4s6.2 2.2 6.2 5.4"/>
+    <path d="M16.8 5.6a3 3 0 0 1 0 5.6"/><path d="M18.4 14.8c1.9.7 3 2.2 3 4.2"/>
+  </symbol>
+  <symbol id="i-book" viewBox="0 0 24 24">
+    <path d="M4 4.6A2.6 2.6 0 0 1 6.6 2H20v18H6.6A2.6 2.6 0 0 0 4 22z"/>
+    <path d="M4 17.4A2.6 2.6 0 0 1 6.6 14.8H20"/>
+  </symbol>
+  <symbol id="i-money" viewBox="0 0 24 24">
+    <path d="M4 20V11"/><path d="M10 20V4"/><path d="M16 20v-6"/><path d="M22 20H2"/>
+  </symbol>
+  <symbol id="i-wallet" viewBox="0 0 24 24">
+    <rect x="3" y="6" width="18" height="13" rx="3"/><path d="M3 10.5h18"/>
+    <circle cx="17" cy="15" r="1.3"/>
+  </symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="3.2"/>
+    <path d="M19.1 14.6a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-2.9 1.2v.2a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-2.9-1.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0-1.2-2.9H3a2 2 0 1 1 0-4h.2a1.7 1.7 0 0 0 1.2-2.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3h.1a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.2a1.7 1.7 0 0 0 2.9 1.2l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9v.1a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.2a1.7 1.7 0 0 0-1.5 1z"/>
+  </symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24">
+    <path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>
+  </symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="4"/>
+    <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>
+  </symbol>
+</svg>
+
+<!-- ================= SIDEBAR ================= -->
+<aside class="sidebar" id="sidebar">
+  <div class="brand">INNOVATION INSTITUTE</div>
+
+  <nav class="nav">
+    <button class="nav-item active" data-view="dashboard">
+      <svg class="ico"><use href="#i-grid"/></svg> Tableau de bord
+    </button>
+    <button class="nav-item" data-view="etudiants">
+      <svg class="ico"><use href="#i-users"/></svg> Étudiants
+    </button>
+    <button class="nav-item" data-view="formations">
+      <svg class="ico"><use href="#i-book"/></svg> Formations
+    </button>
+    <button class="nav-item" data-view="paiements">
+      <svg class="ico"><use href="#i-wallet"/></svg> Paiements
+    </button>
+    <button class="nav-item" data-view="comptabilite">
+      <svg class="ico"><use href="#i-money"/></svg> Comptabilité
+    </button>
+    <button class="nav-item" data-view="parametres">
+      <svg class="ico"><use href="#i-gear"/></svg> Paramètres
+    </button>
+  </nav>
+
+  <div class="sidebar-footer">
+    <button class="nav-item" id="btnTheme" aria-label="Basculer le thème">
+      <svg class="ico" id="themeIcon"><use href="#i-moon"/></svg>
+      <span id="themeLabel">Mode sombre</span>
+    </button>
+  </div>
+</aside>
+
+<div class="overlay" id="overlay"></div>
+
+<!-- ================= MAIN ================= -->
+<div class="main">
+
+  <header class="topbar">
+    <button class="hamburger" id="btnMenu" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </button>
+    <h1 id="pageTitle">Tableau de bord</h1>
+    <div class="topbar-right">
+      <div class="avatar-top">AD</div>
+    </div>
+  </header>
+
+  <!-- ---------- TABLEAU DE BORD ---------- -->
+  <section class="view active" id="view-dashboard">
+    <div class="page-head">
+      <h2>Tableau de bord</h2>
+      <p>Année académique 2025 – 2026 · Vue d'ensemble de l'établissement</p>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-top">
+          <span class="stat-label">Étudiants inscrits</span>
+          <span class="stat-ico"><svg class="ico"><use href="#i-users"/></svg></span>
+        </div>
+        <div class="stat-value" id="statEtudiants">—</div>
+        <div class="stat-sub up" id="statEtudiantsSub">+12 ce mois-ci</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-top">
+          <span class="stat-label">Formations actives</span>
+          <span class="stat-ico"><svg class="ico"><use href="#i-book"/></svg></span>
+        </div>
+        <div class="stat-value" id="statFormations">—</div>
+        <div class="stat-sub" id="statFormationsSub">—</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-top">
+          <span class="stat-label">Solde de caisse</span>
+          <span class="stat-ico g"><svg class="ico"><use href="#i-money"/></svg></span>
+        </div>
+        <div class="stat-value" id="statSolde">—</div>
+        <div class="stat-sub up">Recettes − dépenses</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-top">
+          <span class="stat-label">Taux de recouvrement</span>
+          <span class="stat-ico a"><svg class="ico"><use href="#i-wallet"/></svg></span>
+        </div>
+        <div class="stat-value" id="statRecouvrement">—</div>
+        <div class="stat-sub down" id="statRecouvrementSub">—</div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-head">
+          <h3>Inscriptions par mois</h3>
+          <span class="tag">2025 – 2026</span>
+        </div>
+        <div class="card-body">
+          <div class="chart">
+            <div class="col"><div class="bar" style="--h:38"></div><small>Sep</small></div>
+            <div class="col"><div class="bar" style="--h:62"></div><small>Oct</small></div>
+            <div class="col"><div class="bar" style="--h:88"></div><small>Nov</small></div>
+            <div class="col"><div class="bar" style="--h:54"></div><small>Déc</small></div>
+            <div class="col"><div class="bar" style="--h:71"></div><small>Jan</small></div>
+            <div class="col"><div class="bar" style="--h:46"></div><small>Fév</small></div>
+            <div class="col"><div class="bar" style="--h:33"></div><small>Mar</small></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h3>Formations les plus suivies</h3></div>
+        <div class="card-body" id="topFormations"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h3>Derniers paiements enregistrés</h3></div>
+      <div class="card-body" id="payList"></div>
+    </div>
+  </section>
+
+  <!-- ---------- ÉTUDIANTS ---------- -->
+  <section class="view" id="view-etudiants">
+    <div class="page-head">
+      <h2>Liste des étudiants</h2>
+      <p>Dossiers d'inscription · Formations normales et séminaires</p>
+    </div>
+
+    <div class="card">
+      <div class="toolbar">
+        <input id="searchEtudiant" class="input" type="search" placeholder="Rechercher un nom, un matricule ou une formation…">
+        <select id="filtreType" class="input">
+          <option value="">Tous les types</option>
+          <option>Normale</option>
+          <option>Séminaire</option>
+        </select>
+        <button class="btn btn-primary" id="btnAdd">+ Nouvel étudiant</button>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Matricule</th>
+              <th>Étudiant</th>
+              <th>Type</th>
+              <th>Formation</th>
+              <th>Niveau</th>
+              <th>Statut</th>
+              <th class="num">Solde dû</th>
+              <th class="num">Action</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyEtudiants"></tbody>
+        </table>
+      </div>
+      <div class="table-foot" id="footEtudiants"></div>
+    </div>
+  </section>
+
+  <!-- ---------- FORMATIONS ---------- -->
+  <section class="view" id="view-formations">
+    <div class="page-head">
+      <h2>Formations</h2>
+      <p>Formations normales et séminaires (3 semaines) · Frais d'inscription : 1 000 G</p>
+    </div>
+
+    <div class="card">
+      <div class="toolbar" id="toolbarFormations">
+        <button class="chip active" data-cat="Tout">Tout</button>
+        <button class="chip" data-cat="Normale">Formations normales</button>
+        <button class="chip" data-cat="Séminaire">Séminaires</button>
+        <button class="btn btn-primary" id="btnAddFormation" style="margin-left:auto">+ Nouvelle formation</button>
+      </div>
+      <div class="card-body">
+        <div class="mat-grid" id="matGrid"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- PAIEMENTS ---------- -->
+  <section class="view" id="view-paiements">
+    <div class="page-head">
+      <h2>Suivi des paiements</h2>
+      <p>Voir qui a payé, qui a partiellement payé et qui n'a pas encore payé</p>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-top"><span class="stat-label">Total attendu</span>
+          <span class="stat-ico"><svg class="ico"><use href="#i-money"/></svg></span></div>
+        <div class="stat-value" id="payTotalDu">—</div>
+        <div class="stat-sub">Somme des frais de scolarité</div>
+      </div>
+      <div class="stat">
+        <div class="stat-top"><span class="stat-label">Total encaissé</span>
+          <span class="stat-ico g"><svg class="ico"><use href="#i-wallet"/></svg></span></div>
+        <div class="stat-value" id="payTotalEncaisse">—</div>
+        <div class="stat-sub up">Paiements reçus</div>
+      </div>
+      <div class="stat">
+        <div class="stat-top"><span class="stat-label">Reste à percevoir</span>
+          <span class="stat-ico r"><svg class="ico"><use href="#i-money"/></svg></span></div>
+        <div class="stat-value" id="payReste">—</div>
+        <div class="stat-sub down">Soldes non réglés</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="chips" id="chipsPaiements">
+        <button class="chip active" data-statut="Tout">Tout</button>
+        <button class="chip" data-statut="Payé">Payé</button>
+        <button class="chip" data-statut="Partiel">Partiel</button>
+        <button class="chip" data-statut="Impayé">Impayé</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Étudiant</th>
+              <th>Formation</th>
+              <th>Type</th>
+              <th class="num">Total dû</th>
+              <th class="num">Payé</th>
+              <th class="num">Reste</th>
+              <th>Statut</th>
+              <th class="num">Action</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyPaiements"></tbody>
+        </table>
+      </div>
+      <div class="table-foot" id="footPaiements"></div>
+    </div>
+  </section>
+
+  <!-- ---------- COMPTABILITÉ ---------- -->
+  <section class="view" id="view-comptabilite">
+    <div class="page-head">
+      <h2>Comptabilité</h2>
+      <p>Suivi des recettes et des dépenses · Novembre 2024</p>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-top"><span class="stat-label">Total recettes</span>
+          <span class="stat-ico g"><svg class="ico"><use href="#i-money"/></svg></span></div>
+        <div class="stat-value" id="cptRecettes">—</div>
+        <div class="stat-sub up">Scolarité, séminaires, subventions</div>
+      </div>
+      <div class="stat">
+        <div class="stat-top"><span class="stat-label">Total dépenses</span>
+          <span class="stat-ico r"><svg class="ico"><use href="#i-money"/></svg></span></div>
+        <div class="stat-value" id="cptDepenses">—</div>
+        <div class="stat-sub down">Salaires, charges, fournitures</div>
+      </div>
+      <div class="stat">
+        <div class="stat-top"><span class="stat-label">Solde disponible</span>
+          <span class="stat-ico"><svg class="ico"><use href="#i-money"/></svg></span></div>
+        <div class="stat-value" id="cptSolde">—</div>
+        <div class="stat-sub">Recettes − dépenses</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="chips" id="chipsCompta">
+        <button class="chip active" data-type="Tout">Tout</button>
+        <button class="chip" data-type="Recette">Recettes</button>
+        <button class="chip" data-type="Dépense">Dépenses</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Libellé</th>
+              <th>Catégorie</th>
+              <th>Type</th>
+              <th class="num">Montant</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyCompta"></tbody>
+        </table>
+      </div>
+      <div class="table-foot" id="footCompta"></div>
+    </div>
+  </section>
+
+  <!-- ---------- PARAMÈTRES ---------- -->
+  <section class="view" id="view-parametres">
+    <div class="page-head">
+      <h2>Paramètres</h2>
+      <p>Informations de l'établissement, préférences et sécurité</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-head"><h3>Informations de l'établissement</h3></div>
+        <div class="card-body">
+          <div class="form-grid">
+            <div class="field">
+              <label>Nom de l'établissement</label>
+              <input class="input" value="INNOVATION INSTITUTE">
+            </div>
+            <div class="field">
+              <label>Code établissement</label>
+              <input class="input" value="II-2024">
+            </div>
+            <div class="field">
+              <label>Année académique</label>
+              <input class="input" id="anneeAcad" value="2025 – 2026" readonly>
+            </div>
+            <div class="field">
+              <label>Devise</label>
+              <select class="input">
+                <option selected>Gourde (HTG)</option>
+                <option>Dollar US (USD)</option>
+                <option>Euro (EUR)</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Adresse e-mail</label>
+              <input class="input" value="contact@innovation-institute.edu">
+            </div>
+            <div class="field">
+              <label>Téléphone</label>
+              <input class="input" value="+509 46 28 07 07">
+            </div>
+          </div>
+          <div style="margin-top:18px">
+            <button class="btn btn-primary" id="btnSave">Enregistrer les modifications</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h3>Préférences</h3></div>
+        <div class="card-body">
+          <div class="switch-row">
+            <div>
+              <div class="lbl">Notifications par e-mail</div>
+              <div class="hint">Recevoir un résumé quotidien des paiements</div>
+            </div>
+            <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+          </div>
+          <div class="switch-row">
+            <div>
+              <div class="lbl">Alertes de paiement</div>
+              <div class="hint">Signaler les soldes impayés de plus de 30 jours</div>
+            </div>
+            <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+          </div>
+          <div class="switch-row">
+            <div>
+              <div class="lbl">Sauvegarde automatique</div>
+              <div class="hint">Copie de sécurité des données chaque nuit</div>
+            </div>
+            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+          </div>
+          <div class="switch-row">
+            <div>
+              <div class="lbl">Mode sombre</div>
+              <div class="hint">Basculer depuis le menu latéral</div>
+            </div>
+            <label class="switch"><input type="checkbox" disabled><span class="slider"></span></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h3>Sécurité — Changer le mot de passe</h3></div>
+      <div class="card-body">
+        <form id="formPassword">
+          <div class="form-grid">
+            <div class="field">
+              <label>Mot de passe actuel</label>
+              <input class="input" type="password" id="pwdActuel" placeholder="••••••••">
+            </div>
+            <div class="field">
+              <label>Nouveau mot de passe</label>
+              <input class="input" type="password" id="pwdNouveau" placeholder="Au moins 6 caractères">
+            </div>
+            <div class="field">
+              <label>Confirmer le mot de passe</label>
+              <input class="input" type="password" id="pwdConfirm" placeholder="Répéter le nouveau mot de passe">
+            </div>
+          </div>
+          <div style="margin-top:18px">
+            <button class="btn btn-primary" type="submit">Mettre à jour le mot de passe</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ================= MODAL : ÉTUDIANT (AJOUT) ================= -->
+<div class="modal-back" id="modalEtudiant">
+  <div class="modal">
+    <h3>Nouvel étudiant</h3>
+    <form id="formAdd">
+      <div class="field">
+        <label>Nom complet</label>
+        <input class="input" id="fNom" required placeholder="Ex. Marie-Ange Toussaint">
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Type de formation</label>
+          <select class="input" id="fType">
+            <option>Normale</option>
+            <option>Séminaire</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Formation</label>
+          <select class="input" id="fFormation"></select>
+        </div>
+      </div>
+      <div class="field">
+        <label>Frais totaux (G)</label>
+        <input class="input" id="fFrais" type="number" value="1000" min="0" step="100">
+      </div>
+      <div class="field">
+        <label>Montant déjà payé (G)</label>
+        <input class="input" id="fPaye" type="number" value="0" min="0" step="100">
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" id="btnCancel">Annuler</button>
+        <button type="submit" class="btn btn-primary">Ajouter</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ================= MODAL : ÉDITION ÉTUDIANT ================= -->
+<div class="modal-back" id="modalEditEtudiant">
+  <div class="modal">
+    <h3>Modifier l'étudiant</h3>
+    <div class="modal-info" id="editEtudiantInfo"></div>
+    <form id="formEditEtudiant">
+      <div class="field">
+        <label>Nom complet</label>
+        <input class="input" id="eNom" required>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Type de formation</label>
+          <select class="input" id="eType">
+            <option>Normale</option>
+            <option>Séminaire</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Formation</label>
+          <select class="input" id="eFormation"></select>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Niveau</label>
+          <select class="input" id="eNiv">
+            <option>Certificat</option>
+            <option>Diplôme</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Statut</label>
+          <select class="input" id="eStatut">
+            <option>Actif</option>
+            <option>En attente</option>
+            <option>Suspendu</option>
+          </select>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Frais totaux (G)</label>
+          <input class="input" id="eFrais" type="number" min="0" step="100">
+        </div>
+        <div class="field">
+          <label>Montant payé (G)</label>
+          <input class="input" id="ePaye" type="number" min="0" step="100">
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" id="btnCancelEdit">Annuler</button>
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ================= MODAL : FORMATION ================= -->
+<div class="modal-back" id="modalFormation">
+  <div class="modal">
+    <h3 id="formationModalTitle">Nouvelle formation</h3>
+    <form id="formFormation">
+      <div class="field">
+        <label>Nom de la formation</label>
+        <input class="input" id="ffNom" required placeholder="Ex. Formation en Forklift">
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Catégorie</label>
+          <select class="input" id="ffCat">
+            <option>Normale</option>
+            <option>Séminaire</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Durée</label>
+          <input class="input" id="ffDuree" placeholder="Ex. 3 semaines ou 9 mois">
+        </div>
+      </div>
+      <div class="field">
+        <label>Formateur / Responsable</label>
+        <input class="input" id="ffFormateur" placeholder="Ex. M. Wilfrid Bastien">
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Frais d'inscription (G)</label>
+          <input class="input" id="ffInscription" type="number" value="1000" readonly>
+        </div>
+        <div class="field">
+          <label>Participation (G)</label>
+          <input class="input" id="ffParticipation" type="number" min="0" step="100" value="0">
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" id="btnCancelFormation">Annuler</button>
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ================= MODAL : PAIEMENT ================= -->
+<div class="modal-back" id="modalPaiement">
+  <div class="modal">
+    <h3>Encaisser un paiement</h3>
+    <div class="modal-info" id="paiementInfo"></div>
+    <form id="formPaiement">
+      <div class="field">
+        <label>Montant reçu (G)</label>
+        <input class="input" id="paiementMontant" type="number" min="1" step="100" required>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" id="btnCancelPaiement">Annuler</button>
+        <button type="submit" class="btn btn-primary">Valider le paiement</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function () {
+  'use strict';
+
+  const $  = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+
+  /* ================= OUTILS ================= */
+  const DEVISE = 'G';
+  const fmt = n => Math.round(n).toLocaleString('fr-FR')
+                    .replace(/[\u202f\u00a0]/g, ' ') + ' ' + DEVISE;
+
+  const initiales = nom =>
+    nom.split(' ').filter(Boolean).map(m => m[0]).slice(0, 2).join('').toUpperCase();
+
+  function aujourdhui() {
+    const d = new Date();
+    return String(d.getDate()).padStart(2, '0') + '/' +
+           String(d.getMonth() + 1).padStart(2, '0') + '/' + d.getFullYear();
+  }
+
+  let toastTimer;
+  function toast(msg) {
+    const el = $('#toast');
+    el.textContent = msg;
+    el.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove('show'), 2800);
+  }
+
+  /* ================= THÈME ================= */
+  function appliquerTheme(sombre) {
+    document.body.classList.toggle('dark', sombre);
+    const icon = $('#themeIcon use');
+    if (icon) icon.setAttribute('href', sombre ? '#i-sun' : '#i-moon');
+    $('#themeLabel').textContent = sombre ? 'Mode clair' : 'Mode sombre';
+    try { localStorage.setItem('ii-theme', sombre ? 'dark' : 'light'); } catch (e) {}
+  }
+
+  (function initTheme() {
+    let saved = null;
+    try { saved = localStorage.getItem('ii-theme'); } catch (e) {}
+    appliquerTheme(saved === 'dark');
+  })();
+
+  $('#btnTheme').addEventListener('click', () => {
+    appliquerTheme(!document.body.classList.contains('dark'));
+  });
+
+  /* ================= ÉTAT ================= */
+  let nextMat = 2415;
+  let nextFormId = 10;
+  let filtreFormCat = 'Tout';
+  let filtrePaiement = 'Tout';
+  let comptaFilter = 'Tout';
+  let editFormationId = null;
+  let editMat = null;
+  let paiementMat = null;
+
+  /* ================= DONNÉES : FORMATIONS ================= */
+  const formations = [
+    { id:'F1', nom:"Création d'application",           categorie:'Normale',   duree:'6 mois',     formateur:'M. Stevens Aurélus',   inscription:1000, participation:8000,  inscrits:12 },
+    { id:'F2', nom:'Comptabilité',                      categorie:'Normale',   duree:'9 mois',     formateur:'Mme Fabiola Joseph',   inscription:1000, participation:6500,  inscrits:18 },
+    { id:'F3', nom:'Gestion Commerciale',               categorie:'Normale',   duree:'9 mois',     formateur:'M. Élysée Toussaint',  inscription:1000, participation:7000,  inscrits:15 },
+    { id:'F4', nom:'Informatique de Gestion',           categorie:'Normale',   duree:'9 mois',     formateur:'M. Ronald Brutus',     inscription:1000, participation:7500,  inscrits:11 },
+    { id:'F5', nom:'Secrétariat Bureautique',           categorie:'Normale',   duree:'6 mois',     formateur:'Mme Ginette Lafleur',  inscription:1000, participation:5500,  inscrits:9  },
+    { id:'S1', nom:'Formation en Forklift',             categorie:'Séminaire', duree:'3 semaines', formateur:'M. Wilfrid Bastien',   inscription:1000, participation:5000,  inscrits:14 },
+    { id:'S2', nom:'Camion et Trailer',                 categorie:'Séminaire', duree:'3 semaines', formateur:'M. Jean-Robert Cadet', inscription:1000, participation:12500, inscrits:10 },
+    { id:'S3', nom:'Tresses Africaines',                categorie:'Séminaire', duree:'3 semaines', formateur:'Mme Nadège Pierre',    inscription:1000, participation:1500,  inscrits:9  },
+    { id:'S4', nom:'Dreadlocks',                        categorie:'Séminaire', duree:'3 semaines', formateur:'Mme Nadège Pierre',    inscription:1000, participation:1500,  inscrits:7  }
+  ];
+
+  const coutFormation = f => (f.inscription || 0) + (f.participation || 0);
+
+  /* ================= DONNÉES : ÉTUDIANTS ================= */
+  const etudiants = [
+    { mat:'II-2401', nom:'Naïka Jean-Baptiste',  type:'Normale',   formation:'Comptabilité',            niveau:'Diplôme',    statut:'Actif',      frais:7500,  paye:7500 },
+    { mat:'II-2402', nom:'Marc-Antoine Pierre',  type:'Normale',   formation:'Gestion Commerciale',     niveau:'Diplôme',    statut:'Actif',      frais:8000,  paye:5000 },
+    { mat:'II-2403', nom:'Jessica Augustin',     type:'Normale',   formation:'Comptabilité',            niveau:'Diplôme',    statut:'Actif',      frais:7500,  paye:7500 },
+    { mat:'II-2404', nom:'Loubens Dorval',       type:'Normale',   formation:"Création d'application",  niveau:'Diplôme',    statut:'En attente', frais:9000,  paye:2000 },
+    { mat:'II-2405', nom:'Ketia Louis',          type:'Normale',   formation:'Secrétariat Bureautique', niveau:'Diplôme',    statut:'Actif',      frais:6500,  paye:6500 },
+    { mat:'II-2406', nom:'Samuel Baptiste',      type:'Normale',   formation:'Comptabilité',            niveau:'Diplôme',    statut:'Actif',      frais:7500,  paye:4000 },
+    { mat:'II-2407', nom:'Roseline Étienne',     type:'Séminaire', formation:'Dreadlocks',              niveau:'Certificat', statut:'Suspendu',   frais:2500,  paye:0 },
+    { mat:'II-2408', nom:'Dieuseul Charles',     type:'Normale',   formation:'Informatique de Gestion', niveau:'Diplôme',    statut:'Actif',      frais:8500,  paye:8500 },
+    { mat:'II-2409', nom:'Marie-Ange Toussaint', type:'Séminaire', formation:'Formation en Forklift',   niveau:'Certificat', statut:'Actif',      frais:6000,  paye:6000 },
+    { mat:'II-2410', nom:'Widmark Joseph',       type:'Séminaire', formation:'Camion et Trailer',       niveau:'Certificat', statut:'En attente', frais:13500, paye:0 },
+    { mat:'II-2411', nom:'Fabiola Désir',        type:'Normale',   formation:'Gestion Commerciale',     niveau:'Diplôme',    statut:'Actif',      frais:8000,  paye:8000 },
+    { mat:'II-2412', nom:'Jean-Robert Métellus', type:'Normale',   formation:'Comptabilité',            niveau:'Diplôme',    statut:'Actif',      frais:7500,  paye:6000 },
+    { mat:'II-2413', nom:'Sandra Vilbrun',       type:'Séminaire', formation:'Tresses Africaines',      niveau:'Certificat', statut:'Actif',      frais:2500,  paye:1000 },
+    { mat:'II-2414', nom:'Kenny Alphonse',       type:'Séminaire', formation:'Formation en Forklift',   niveau:'Certificat', statut:'Suspendu',   frais:6000,  paye:2000 }
+  ];
+
+  /* ================= DONNÉES : COMPTABILITÉ ================= */
+  const transactions = [
+    { date:'14/11/2024', lib:'Scolarité – Naïka Jean-Baptiste',  cat:'Scolarité',    type:'Recette', montant:2500 },
+    { date:'13/11/2024', lib:'Scolarité – Samuel Baptiste',      cat:'Scolarité',    type:'Recette', montant:2000 },
+    { date:'12/11/2024', lib:'Séminaire Forklift – Marie-Ange Toussaint', cat:'Séminaire', type:'Recette', montant:5000 },
+    { date:'11/11/2024', lib:'Inscription – Marc-Antoine Pierre', cat:'Inscriptions', type:'Recette', montant:1000 },
+    { date:'10/11/2024', lib:'Scolarité – Jessica Augustin',     cat:'Scolarité',    type:'Recette', montant:3000 },
+    { date:'09/11/2024', lib:'Salaires enseignants (novembre)',  cat:'Salaires',     type:'Dépense', montant:12000 },
+    { date:'08/11/2024', lib:'Séminaire Tresses – Sandra Vilbrun',cat:'Séminaire',   type:'Recette', montant:1000 },
+    { date:'07/11/2024', lib:'Loyer du local',                   cat:'Charges',      type:'Dépense', montant:8000 },
+    { date:'06/11/2024', lib:'Fournitures de bureau',            cat:'Fournitures',  type:'Dépense', montant:1500 },
+    { date:'05/11/2024', lib:'Scolarité – Ketia Louis',          cat:'Scolarité',    type:'Recette', montant:2500 },
+    { date:'03/11/2024', lib:'Subvention partenaire',            cat:'Subventions',  type:'Recette', montant:15000 },
+    { date:'02/11/2024', lib:'Facture électricité',              cat:'Charges',      type:'Dépense', montant:1200 },
+    { date:'01/11/2024', lib:'Maintenance informatique',         cat:'Maintenance',  type:'Dépense', montant:2500 }
+  ];
+
+  /* ================= NAVIGATION ================= */
+  const sidebar = $('#sidebar');
+  const overlay = $('#overlay');
+  const titles = {
+    dashboard: 'Tableau de bord',
+    etudiants: 'Étudiants',
+    formations: 'Formations',
+    paiements: 'Paiements',
+    comptabilite: 'Comptabilité',
+    parametres: 'Paramètres'
+  };
+
+  function closeSidebar() {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('show');
+  }
+
+  $$('.nav-item[data-view]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const v = btn.dataset.view;
+      $$('.nav-item[data-view]').forEach(b => b.classList.toggle('active', b === btn));
+      $$('.view').forEach(s => s.classList.toggle('active', s.id === 'view-' + v));
+      $('#pageTitle').textContent = titles[v];
+      closeSidebar();
+      window.scrollTo({ top: 0 });
+    });
+  });
+
+  $('#btnMenu').addEventListener('click', () => {
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('show');
+  });
+  overlay.addEventListener('click', closeSidebar);
+  window.addEventListener('resize', () => { if (window.innerWidth > 900) closeSidebar(); });
+
+  /* ================= CALCULS ================= */
+  function totaux() {
+    const rec = transactions.filter(t => t.type === 'Recette')
+                            .reduce((s, t) => s + t.montant, 0);
+    const dep = transactions.filter(t => t.type === 'Dépense')
+                            .reduce((s, t) => s + t.montant, 0);
+    return { rec, dep, solde: rec - dep };
+  }
+
+  function statutPaiement(e) {
+    const reste = e.frais - e.paye;
+    if (reste <= 0) return 'Payé';
+    if (e.paye <= 0) return 'Impayé';
+    return 'Partiel';
+  }
+
+  function classeStatut(s) {
+    return s === 'Actif' ? 'actif' : s === 'En attente' ? 'attente' : 'suspendu';
+  }
+
+  /* ================= RENDU : DASHBOARD ================= */
+  function renderDashboard() {
+    const { solde } = totaux();
+    const totalFrais = etudiants.reduce((s, e) => s + e.frais, 0);
+    const totalPaye  = etudiants.reduce((s, e) => s + e.paye, 0);
+    const taux = totalFrais ? Math.round(totalPaye / totalFrais * 100) : 0;
+    const impayes = etudiants.filter(e => e.frais - e.paye > 0).length;
+    const nbSem = formations.filter(f => f.categorie === 'Séminaire').length;
+    const nbNorm = formations.filter(f => f.categorie === 'Normale').length;
+
+    $('#statEtudiants').textContent = etudiants.length;
+    $('#statEtudiantsSub').textContent = impayes + ' dossier(s) avec solde dû';
+    $('#statFormations').textContent = formations.length;
+    $('#statFormationsSub').textContent = nbNorm + ' normale(s) · ' + nbSem + ' séminaire(s)';
+    $('#statSolde').textContent = fmt(solde);
+    $('#statRecouvrement').textContent = taux + ' %';
+    $('#statRecouvrementSub').textContent = impayes + ' dossier(s) en attente';
+
+    const top = [...formations].sort((a, b) => b.inscrits - a.inscrits).slice(0, 4);
+    const max = top.length ? Math.max(...top.map(f => f.inscrits), 1) : 1;
+    $('#topFormations').innerHTML = top.map(f => `
+      <div class="prog">
+        <div class="prog-top"><span>${f.nom}</span><strong>${f.inscrits} inscrits</strong></div>
+        <div class="prog-track"><div class="prog-fill" style="width:${Math.round(f.inscrits / max * 100)}%"></div></div>
+      </div>
+    `).join('') || '<div class="empty" style="padding:10px 0">Aucune formation.</div>';
+
+    const recents = transactions.filter(t => t.type === 'Recette').slice(0, 5);
+    $('#payList').innerHTML = recents.map(t => {
+      const nom = t.lib.replace(/^[^–]*–\s*/, '').trim() || 'II';
+      return `<div class="pay-item">
+        <span class="ava">${initiales(nom)}</span>
+        <div>
+          <div class="pay-name">${t.lib}</div>
+          <div class="pay-meta">${t.cat} · ${t.date}</div>
+        </div>
+        <span class="money plus">+ ${fmt(t.montant)}</span>
+      </div>`;
+    }).join('') || '<div class="empty" style="padding:10px 0">Aucun paiement enregistré.</div>';
+  }
+
+  /* ================= RENDU : ÉTUDIANTS ================= */
+  function renderEtudiants() {
+    const q = $('#searchEtudiant').value.trim().toLowerCase();
+    const type = $('#filtreType').value;
+
+    const liste = etudiants.filter(e => {
+      const okT = !type || e.type === type;
+      const okQ = !q || e.nom.toLowerCase().includes(q) ||
+                  e.mat.toLowerCase().includes(q) ||
+                  e.formation.toLowerCase().includes(q);
+      return okT && okQ;
+    });
+
+    $('#tbodyEtudiants').innerHTML = liste.map(e => {
+      const reste = e.frais - e.paye;
+      return `<tr>
+        <td class="mono">${e.mat}</td>
+        <td><div class="who"><span class="ava">${initiales(e.nom)}</span><span>${e.nom}</span></div></td>
+        <td><span class="pill ${e.type === 'Séminaire' ? 'seminaire' : 'normale'}">${e.type}</span></td>
+        <td>${e.formation}</td>
+        <td>${e.niveau || '—'}</td>
+        <td><span class="pill ${classeStatut(e.statut)}">${e.statut}</span></td>
+        <td class="num">${reste > 0
+          ? `<span class="money due">${fmt(reste)}</span>`
+          : `<span class="money ok">À jour</span>`}</td>
+        <td class="num"><button class="link" data-mat="${e.mat}">Détails</button></td>
+      </tr>`;
+    }).join('') ||
+    `<tr><td colspan="8" class="empty">Aucun étudiant ne correspond à votre recherche.</td></tr>`;
+
+    $('#footEtudiants').textContent =
+      `${liste.length} étudiant(s) affiché(s) · ${etudiants.length} dossier(s) dans la base`;
+  }
+
+  $('#searchEtudiant').addEventListener('input', renderEtudiants);
+  $('#filtreType').addEventListener('change', renderEtudiants);
+
+  $('#tbodyEtudiants').addEventListener('click', ev => {
+    const b = ev.target.closest('[data-mat]');
+    if (b) openEditEtudiant(b.dataset.mat);
+  });
+
+  /* ================= RENDU : FORMATIONS ================= */
+  function renderFormations() {
+    const liste = formations.filter(f =>
+      filtreFormCat === 'Tout' || f.categorie === filtreFormCat);
+
+    $('#matGrid').innerHTML = liste.map(f => `
+      <div class="mat">
+        <div class="mat-top">
+          <span class="mat-code ${f.categorie === 'Séminaire' ? 'sem' : ''}">
+            ${f.categorie === 'Séminaire' ? 'SÉMINAIRE' : 'NORMALE'}
+          </span>
+          <button class="link" data-edit="${f.id}">Modifier</button>
+        </div>
+        <h4>${f.nom}</h4>
+        <div class="mat-prof">${f.formateur}</div>
+        <div class="mat-meta">
+          <span>Durée <b>${f.duree}</b></span>
+          <span>Inscription <b>${fmt(f.inscription)}</b></span>
+          <span>Participation <b>${fmt(f.participation)}</b></span>
+          <span>Total <b>${fmt(coutFormation(f))}</b></span>
+          <span><b>${f.inscrits}</b> inscrits</span>
+        </div>
+      </div>
+    `).join('') || `<div class="empty">Aucune formation dans cette catégorie.</div>`;
+  }
+
+  $('#toolbarFormations').addEventListener('click', ev => {
+    const chip = ev.target.closest('.chip');
+    if (!chip) return;
+    $$('#toolbarFormations .chip').forEach(c => c.classList.toggle('active', c === chip));
+    filtreFormCat = chip.dataset.cat;
+    renderFormations();
+  });
+
+  $('#matGrid').addEventListener('click', ev => {
+    const b = ev.target.closest('[data-edit]');
+    if (b) openFormationModal(b.dataset.edit);
+  });
+
+  /* ================= RENDU : PAIEMENTS ================= */
+  function renderPaiements() {
+    const totalFrais = etudiants.reduce((s, e) => s + e.frais, 0);
+    const totalPaye  = etudiants.reduce((s, e) => s + e.paye, 0);
+
+    $('#payTotalDu').textContent = fmt(totalFrais);
+    $('#payTotalEncaisse').textContent = fmt(totalPaye);
+    $('#payReste').textContent = fmt(totalFrais - totalPaye);
+
+    const rows = etudiants
+      .map(e => {
+        const reste = e.frais - e.paye;
+        return { e, reste, st: statutPaiement(e) };
+      })
+      .filter(r => filtrePaiement === 'Tout' || r.st === filtrePaiement);
+
+    $('#tbodyPaiements').innerHTML = rows.map(({ e, reste, st }) => `
+      <tr>
+        <td><div class="who"><span class="ava">${initiales(e.nom)}</span><span>${e.nom}</span></div></td>
+        <td>${e.formation}</td>
+        <td><span class="pill ${e.type === 'Séminaire' ? 'seminaire' : 'normale'}">${e.type}</span></td>
+        <td class="num mono">${fmt(e.frais)}</td>
+        <td class="num"><span class="money ok">${fmt(e.paye)}</span></td>
+        <td class="num">${reste > 0
+          ? `<span class="money due">${fmt(reste)}</span>`
+          : `<span class="money ok">—</span>`}</td>
+        <td><span class="pill ${
+          st === 'Payé' ? 'actif' : st === 'Partiel' ? 'attente' : 'suspendu'
+        }">${st}</span></td>
+        <td class="num">${reste > 0
+          ? `<button class="link" data-pay="${e.mat}">Encaisser</button>`
+          : `<span class="mono">Soldé</span>`}</td>
+      </tr>
+    `).join('') || `<tr><td colspan="8" class="empty">Aucun dossier pour ce filtre.</td></tr>`;
+
+    $('#footPaiements').textContent =
+      `${rows.length} dossier(s) affiché(s) · Total encaissé : ${fmt(totalPaye)}`;
+  }
+
+  $('#chipsPaiements').addEventListener('click', ev => {
+    const chip = ev.target.closest('.chip');
+    if (!chip) return;
+    $$('#chipsPaiements .chip').forEach(c => c.classList.toggle('active', c === chip));
+    filtrePaiement = chip.dataset.statut;
+    renderPaiements();
+  });
+
+  $('#tbodyPaiements').addEventListener('click', ev => {
+    const b = ev.target.closest('[data-pay]');
+    if (b) openPaiement(b.dataset.pay);
+  });
+
+  /* ================= RENDU : COMPTABILITÉ ================= */
+  function renderCompta() {
+    const liste = transactions.filter(t =>
+      comptaFilter === 'Tout' || t.type === comptaFilter);
+    const { rec, dep, solde } = totaux();
+
+    $('#cptRecettes').textContent = fmt(rec);
+    $('#cptDepenses').textContent = fmt(dep);
+    $('#cptSolde').textContent = fmt(solde);
+
+    $('#tbodyCompta').innerHTML = liste.map(t => `
+      <tr>
+        <td class="mono">${t.date}</td>
+        <td>${t.lib}</td>
+        <td>${t.cat}</td>
+        <td><span class="pill ${t.type === 'Recette' ? 'actif' : 'suspendu'}">${t.type}</span></td>
+        <td class="num">
+          <span class="money ${t.type === 'Recette' ? 'plus' : 'minus'}">
+            ${t.type === 'Recette' ? '+' : '−'} ${fmt(t.montant)}
+          </span>
+        </td>
+      </tr>
+    `).join('') || `<tr><td colspan="5" class="empty">Aucune opération.</td></tr>`;
+
+    $('#footCompta').textContent =
+      `${liste.length} opération(s) affichée(s) · Solde : ${fmt(solde)}`;
+  }
+
+  $('#chipsCompta').addEventListener('click', ev => {
+    const chip = ev.target.closest('.chip');
+    if (!chip) return;
+    $$('#chipsCompta .chip').forEach(c => c.classList.toggle('active', c === chip));
+    comptaFilter = chip.dataset.type;
+    renderCompta();
+  });
+
+  /* ================= RENDU GLOBAL ================= */
+  function renderAll() {
+    renderDashboard();
+    renderEtudiants();
+    renderFormations();
+    renderPaiements();
+    renderCompta();
+  }
+
+  /* ================= MODAL ÉTUDIANT (AJOUT) ================= */
+  const modalEtudiant = $('#modalEtudiant');
+
+  function majFraisDepuisFormation() {
+    const f = formations.find(x => x.nom === $('#fFormation').value);
+    $('#fFrais').value = f ? coutFormation(f) : 0;
+  }
+
+  function peuplerFormationsSelect() {
+    const type = $('#fType').value;
+    const opts = formations
+      .filter(f => f.categorie === type)
+      .map(f => `<option value="${f.nom}">${f.nom}</option>`)
+      .join('');
+    $('#fFormation').innerHTML = opts || '<option value="">— Aucune formation —</option>';
+    majFraisDepuisFormation();
+  }
+
+  $('#fType').addEventListener('change', peuplerFormationsSelect);
+  $('#fFormation').addEventListener('change', majFraisDepuisFormation);
+
+  $('#btnAdd').addEventListener('click', () => {
+    $('#formAdd').reset();
+    $('#fType').value = 'Normale';
+    peuplerFormationsSelect();
+    $('#fPaye').value = 0;
+    modalEtudiant.classList.add('show');
+  });
+  $('#btnCancel').addEventListener('click', () => modalEtudiant.classList.remove('show'));
+  modalEtudiant.addEventListener('click', ev => {
+    if (ev.target === modalEtudiant) modalEtudiant.classList.remove('show');
+  });
+
+  $('#formAdd').addEventListener('submit', ev => {
+    ev.preventDefault();
+    const nom = $('#fNom').value.trim();
+    if (!nom) return;
+
+    const type = $('#fType').value;
+    const formationNom = $('#fFormation').value;
+    const f = formations.find(x => x.nom === formationNom);
+
+    etudiants.unshift({
+      mat: 'II-' + (nextMat++),
+      nom,
+      type,
+      formation: formationNom || '—',
+      niveau: type === 'Séminaire' ? 'Certificat' : 'Diplôme',
+      statut: 'En attente',
+      frais: Number($('#fFrais').value) || 0,
+      paye: Number($('#fPaye').value) || 0
+    });
+
+    if (f) f.inscrits++;
+
+    modalEtudiant.classList.remove('show');
+    ev.target.reset();
+    renderAll();
+    toast('Étudiant ajouté avec succès');
+  });
+
+  /* ================= MODAL ÉDITION ÉTUDIANT ================= */
+  const modalEdit = $('#modalEditEtudiant');
+
+  function remplirFormationsEdit(type, selectedNom) {
+    const opts = formations
+      .filter(f => f.categorie === type)
+      .map(f => `<option value="${f.nom}" ${f.nom === selectedNom ? 'selected' : ''}>${f.nom}</option>`)
+      .join('');
+    $('#eFormation').innerHTML = opts || '<option value="">— Aucune formation —</option>';
+  }
+
+  function openEditEtudiant(mat) {
+    const e = etudiants.find(x => x.mat === mat);
+    if (!e) return;
+
+    editMat = mat;
+    $('#editEtudiantInfo').textContent = `Matricule : ${e.mat}`;
+    $('#eNom').value = e.nom;
+    $('#eType').value = e.type;
+    remplirFormationsEdit(e.type, e.formation);
+    $('#eNiv').value = (e.niveau === 'Diplôme') ? 'Diplôme' : 'Certificat';
+    $('#eStatut').value = e.statut;
+    $('#eFrais').value = e.frais;
+    $('#ePaye').value = e.paye;
+
+    modalEdit.classList.add('show');
+  }
+
+  $('#eType').addEventListener('change', () => {
+    remplirFormationsEdit($('#eType').value, null);
+    const f = formations.find(x => x.nom === $('#eFormation').value);
+    if (f) $('#eFrais').value = coutFormation(f);
+  });
+
+  $('#eFormation').addEventListener('change', () => {
+    const f = formations.find(x => x.nom === $('#eFormation').value);
+    if (f) $('#eFrais').value = coutFormation(f);
+  });
+
+  $('#btnCancelEdit').addEventListener('click', () => modalEdit.classList.remove('show'));
+  modalEdit.addEventListener('click', ev => {
+    if (ev.target === modalEdit) modalEdit.classList.remove('show');
+  });
+
+  $('#formEditEtudiant').addEventListener('submit', ev => {
+    ev.preventDefault();
+    const e = etudiants.find(x => x.mat === editMat);
+    if (!e) return;
+
+    const nom = $('#eNom').value.trim();
+    if (!nom) return;
+
+    e.nom      = nom;
+    e.type     = $('#eType').value;
+    e.formation = $('#eFormation').value || '—';
+    e.niveau   = $('#eNiv').value;
+    e.statut   = $('#eStatut').value;
+    e.frais    = Number($('#eFrais').value) || 0;
+    e.paye     = Number($('#ePaye').value) || 0;
+
+    modalEdit.classList.remove('show');
+    renderAll();
+    toast('Étudiant mis à jour');
+  });
+
+  /* ================= MODAL FORMATION ================= */
+  const modalFormation = $('#modalFormation');
+
+  function openFormationModal(id) {
+    editFormationId = id || null;
+    const f = id ? formations.find(x => x.id === id) : null;
+
+    $('#formationModalTitle').textContent = f ? 'Modifier la formation' : 'Nouvelle formation';
+    $('#ffNom').value = f ? f.nom : '';
+    $('#ffCat').value = f ? f.categorie : 'Normale';
+    $('#ffDuree').value = f ? f.duree : '';
+    $('#ffFormateur').value = f ? f.formateur : '';
+    $('#ffInscription').value = f ? f.inscription : 1000;
+    $('#ffParticipation').value = f ? f.participation : 0;
+
+    modalFormation.classList.add('show');
+  }
+
+  $('#btnAddFormation').addEventListener('click', () => openFormationModal(null));
+  $('#btnCancelFormation').addEventListener('click', () => modalFormation.classList.remove('show'));
+  modalFormation.addEventListener('click', ev => {
+    if (ev.target === modalFormation) modalFormation.classList.remove('show');
+  });
+
+  $('#formFormation').addEventListener('submit', ev => {
+    ev.preventDefault();
+    const nom = $('#ffNom').value.trim();
+    if (!nom) return;
+
+    const data = {
+      nom,
+      categorie: $('#ffCat').value,
+      duree: $('#ffDuree').value.trim() || '—',
+      formateur: $('#ffFormateur').value.trim() || 'À définir',
+      inscription: Number($('#ffInscription').value) || 0,
+      participation: Number($('#ffParticipation').value) || 0
+    };
+
+    if (editFormationId) {
+      const f = formations.find(x => x.id === editFormationId);
+      const ancienNom = f.nom;
+      Object.assign(f, data);
+      if (ancienNom !== f.nom) {
+        etudiants.forEach(e => { if (e.formation === ancienNom) e.formation = f.nom; });
+      }
+      toast('Formation modifiée');
+    } else {
+      formations.push({ id: 'F' + (nextFormId++), inscrits: 0, ...data });
+      toast('Formation ajoutée');
+    }
+
+    modalFormation.classList.remove('show');
+    renderAll();
+  });
+
+  /* ================= MODAL PAIEMENT ================= */
+  const modalPaiement = $('#modalPaiement');
+
+  function openPaiement(mat) {
+    const e = etudiants.find(x => x.mat === mat);
+    if (!e) return;
+    paiementMat = mat;
+    const reste = e.frais - e.paye;
+
+    $('#paiementInfo').textContent =
+      `${e.nom} — ${e.formation} · Reste à payer : ${fmt(reste)}`;
+    $('#paiementMontant').value = reste;
+    $('#paiementMontant').max = reste;
+    modalPaiement.classList.add('show');
+  }
+
+  $('#btnCancelPaiement').addEventListener('click', () => modalPaiement.classList.remove('show'));
+  modalPaiement.addEventListener('click', ev => {
+    if (ev.target === modalPaiement) modalPaiement.classList.remove('show');
+  });
+
+  $('#formPaiement').addEventListener('submit', ev => {
+    ev.preventDefault();
+    const e = etudiants.find(x => x.mat === paiementMat);
+    if (!e) return;
+
+    const reste = e.frais - e.paye;
+    let m = Number($('#paiementMontant').value);
+
+    if (!m || m <= 0) { toast('Montant invalide'); return; }
+    if (m > reste) m = reste;
+
+    e.paye += m;
+
+    transactions.unshift({
+      date: aujourdhui(),
+      lib: (e.type === 'Séminaire' ? 'Séminaire' : 'Scolarité') + ' – ' + e.nom,
+      cat: e.type === 'Séminaire' ? 'Séminaire' : 'Scolarité',
+      type: 'Recette',
+      montant: m
+    });
+
+    modalPaiement.classList.remove('show');
+    renderAll();
+    toast('Paiement de ' + fmt(m) + ' enregistré');
+  });
+
+  /* ================= PARAMÈTRES ================= */
+  $('#btnSave').addEventListener('click', () => toast('Paramètres enregistrés'));
+
+  $('#formPassword').addEventListener('submit', ev => {
+    ev.preventDefault();
+    const actuel = $('#pwdActuel').value;
+    const nouveau = $('#pwdNouveau').value;
+    const confirm = $('#pwdConfirm').value;
+
+    if (!actuel || !nouveau || !confirm) {
+      toast('Veuillez remplir tous les champs');
+      return;
+    }
+    if (nouveau.length < 6) {
+      toast('Le nouveau mot de passe doit contenir au moins 6 caractères');
+      return;
+    }
+    if (nouveau !== confirm) {
+      toast('Les mots de passe ne correspondent pas');
+      return;
+    }
+
+    ev.target.reset();
+    toast('Mot de passe modifié avec succès');
+  });
+
+  /* ================= INITIALISATION ================= */
+  peuplerFormationsSelect();
+  renderAll();
+
+})();
+</script>
+</body>
+  </html>
