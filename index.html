@@ -243,13 +243,15 @@ th.num,td.num{text-align:right}
 .link:hover{background:var(--accent-soft)}
 
 /* ============ CHIPS ============ */
-.chips{display:flex;gap:8px;flex-wrap:wrap;padding:14px 18px;border-bottom:1px solid var(--line)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;padding:14px 18px;border-bottom:1px solid var(--line);
+       align-items:center}
 .chip{
   font:inherit;font-size:12.5px;font-weight:600;padding:6px 14px;border-radius:99px;
   border:1px solid var(--line);background:#fff;color:var(--muted);cursor:pointer;transition:.15s;
 }
 .chip:hover{border-color:#c7cbd6}
 .chip.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.chips .input{margin-left:auto;min-width:200px;flex:1;max-width:300px;padding:7px 12px;font-size:13px}
 
 /* ============ FORMATIONS ============ */
 .mat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:14px}
@@ -329,6 +331,7 @@ th.num,td.num{text-align:right}
 @media (max-width:420px){
   .field-row{grid-template-columns:1fr}
   .modal{padding:18px}
+  .chips .input{margin-left:0;max-width:none;width:100%}
 }
 </style>
 </head>
@@ -585,6 +588,7 @@ th.num,td.num{text-align:right}
         <button class="chip" data-statut="Payé">Payé</button>
         <button class="chip" data-statut="Partiel">Partiel</button>
         <button class="chip" data-statut="Impayé">Impayé</button>
+        <input id="searchPaiement" class="input" type="search" placeholder="Rechercher un étudiant…">
       </div>
       <div class="table-wrap">
         <table>
@@ -697,7 +701,7 @@ th.num,td.num{text-align:right}
             </div>
             <div class="field">
               <label>Téléphone</label>
-              <input class="input" value="+509 46 28 07 07">
+              <input class="input" value="+(509) 46 28 07 07">
             </div>
           </div>
           <div style="margin-top:18px">
@@ -1224,12 +1228,20 @@ th.num,td.num{text-align:right}
     $('#payTotalEncaisse').textContent = fmt(totalPaye);
     $('#payReste').textContent = fmt(totalFrais - totalPaye);
 
+    const q = $('#searchPaiement').value.trim().toLowerCase();
+
     const rows = etudiants
       .map(e => {
         const reste = e.frais - e.paye;
         return { e, reste, st: statutPaiement(e) };
       })
-      .filter(r => filtrePaiement === 'Tout' || r.st === filtrePaiement);
+      .filter(r => filtrePaiement === 'Tout' || r.st === filtrePaiement)
+      .filter(r => {
+        if (!q) return true;
+        return r.e.nom.toLowerCase().includes(q) ||
+               r.e.mat.toLowerCase().includes(q) ||
+               r.e.formation.toLowerCase().includes(q);
+      });
 
     $('#tbodyPaiements').innerHTML = rows.map(({ e, reste, st }) => `
       <tr>
@@ -1248,7 +1260,7 @@ th.num,td.num{text-align:right}
           ? `<button class="link" data-pay="${e.mat}">Encaisser</button>`
           : `<span class="mono">Soldé</span>`}</td>
       </tr>
-    `).join('') || `<tr><td colspan="8" class="empty">Aucun dossier pour ce filtre.</td></tr>`;
+    `).join('') || `<tr><td colspan="8" class="empty">Aucun dossier ne correspond à cette recherche.</td></tr>`;
 
     $('#footPaiements').textContent =
       `${rows.length} dossier(s) affiché(s) · Total encaissé : ${fmt(totalPaye)}`;
@@ -1261,6 +1273,8 @@ th.num,td.num{text-align:right}
     filtrePaiement = chip.dataset.statut;
     renderPaiements();
   });
+
+  $('#searchPaiement').addEventListener('input', renderPaiements);
 
   $('#tbodyPaiements').addEventListener('click', ev => {
     const b = ev.target.closest('[data-pay]');
